@@ -1,0 +1,51 @@
+{
+  "name": "@getf1tickets/order-service",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with Fastify-CLI.",
+  "main": "app.ts",
+  "scripts": {
+    "prepare": "ts-patch install -s",
+    "start": "fastify start -l info dist/app.js",
+    "build": "tsc",
+    "dev": "yarn run local:install-sdk && tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l trace -P dist/app.js\"",
+    "local:install-sdk": "yalc add @getf1tickets/sdk@1.0.0"
+  },
+  "dependencies": {
+    "@getf1tickets/sdk": "file:.yalc/@getf1tickets/sdk",
+    "fastify": "^3.0.0",
+    "fastify-autoload": "^3.3.1",
+    "fastify-cli": "^2.14.0",
+    "fastify-plugin": "^3.0.0",
+    "fastify-sensible": "^3.1.0",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "7.0.0-alpha.2"
+  },
+  "devDependencies": {
+    "@types/node": "^16.0.0",
+    "@types/tap": "^15.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
+    "concurrently": "^6.0.0",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^16.1.0",
+    "eslint-plugin-import": "^2.25.4",
+    "fastify-tsconfig": "^1.0.1",
+    "tap": "^15.0.9",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.2.4",
+    "yalc": "^1.0.0-pre.53",
+    "typescript-transform-paths": "^3.3.1",
+    "ts-patch": "^2.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getf1tickets/auth-service.git"
+  },
+  "author": "iverly <contact@iverly.net>",
+  "bugs": {
+    "url": "https://github.com/getf1tickets/auth-service/issues"
+  },
+  "homepage": "https://github.com/getf1tickets/auth-service#readme"
+}
