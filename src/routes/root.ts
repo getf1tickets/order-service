@@ -80,6 +80,11 @@ const root: FastifyPluginAsync = async (fastify): Promise<void> => {
         }
       }
 
+      await fastify.amqp.publish('order.crud', 'created', {
+        user: request.user.toJSON(),
+        order: order.toJSON(),
+      });
+
       reply.send(order);
     },
   });
