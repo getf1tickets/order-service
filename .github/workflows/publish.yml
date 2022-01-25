@@ -1,0 +1,32 @@
+name: Build & push tag to repository
+
+on:
+  create:
+    tags:
+      - v*
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: generate-npmrc
+        run: |
+          echo "always-auth=true" >> .npmrc
+          echo "@getf1tickets:registry=https://npm.pkg.github.com/" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=$NPM_GITHUB_TOKEN" >> .npmrc
+        env:
+          NPM_GITHUB_TOKEN: ${{ secrets.GH_PACKAGE_TOKEN }}
+      - name: Get tag
+        id: docker-tag
+        uses: yuya-takeyama/docker-tag-from-github-ref-action@v1
+      - name: Build and push the docker image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          image: order-service
+          tags: ${{ steps.docker-tag.outputs.tag }}
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}

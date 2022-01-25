@@ -5,13 +5,13 @@
   "main": "app.ts",
   "scripts": {
     "prepare": "ts-patch install -s",
-    "start": "fastify start -l info dist/app.js",
+    "start": "fastify start -l info -a 0.0.0.0 -p 3000 dist/app.js",
     "build": "tsc",
-    "dev": "yarn run local:install-sdk && tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l trace -P dist/app.js\"",
+    "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l trace -P dist/app.js\"",
     "local:install-sdk": "yalc add @getf1tickets/sdk@1.0.0"
   },
   "dependencies": {
-    "@getf1tickets/sdk": "file:.yalc/@getf1tickets/sdk",
+    "@getf1tickets/sdk": "^1.0.2",
     "amqplib": "^0.8.0",
     "await-to-js": "^3.0.0",
     "fastify": "^3.0.0",
