@@ -8,10 +8,10 @@
     "start": "fastify start -l info -a 0.0.0.0 -p 3000 dist/app.js",
     "build": "tsc",
     "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\" \"tsc -w\" \"fastify start --ignore-watch=.ts$ -w -l trace -P dist/app.js\"",
-    "local:install-sdk": "yalc add @getf1tickets/sdk@1.0.0"
+    "local:install-sdk": "yalc add @getf1tickets/sdk@1.0.3"
   },
   "dependencies": {
-    "@getf1tickets/sdk": "^1.0.2",
+    "@getf1tickets/sdk": "file:.yalc/@getf1tickets/sdk",
     "amqplib": "^0.8.0",
     "await-to-js": "^3.0.0",
     "fastify": "^3.0.0",
@@ -19,11 +19,13 @@
     "fastify-cli": "^2.14.0",
     "fastify-plugin": "^3.0.0",
     "fastify-sensible": "^3.1.0",
+    "luxon": "^2.3.0",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "7.0.0-alpha.2"
   },
   "devDependencies": {
+    "@types/luxon": "^2.0.9",
     "@types/node": "^16.0.0",
     "@types/tap": "^15.0.0",
     "@typescript-eslint/eslint-plugin": "^5.9.0",

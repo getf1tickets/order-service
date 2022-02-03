@@ -3,6 +3,8 @@ import {
   Product, UUID, Order, OrderStatus,
 } from '@getf1tickets/sdk';
 import { to } from 'await-to-js';
+import { Op } from 'sequelize';
+import { DateTime } from 'luxon';
 import { orderCreationSchema, orderResponseSchema } from '@/schemas/order';
 
 const root: FastifyPluginAsync = async (fastify): Promise<void> => {
@@ -86,6 +88,58 @@ const root: FastifyPluginAsync = async (fastify): Promise<void> => {
       });
 
       reply.send(order);
+    },
+  });
+
+  fastify.route({
+    method: 'GET',
+    url: '/stats',
+    preHandler: [
+      fastify.authentication.authorize(),
+      fastify.middlewares.useUser({
+        useToken: true,
+        shouldBeAdmin: true,
+      }),
+    ],
+    handler: async () => {
+      const date = new Date();
+
+      const ordersThisMonth = await fastify.to500(Order.findAll({
+        where: {
+          status: 'completed',
+          createdAt: {
+            [Op.gte]: new Date(date.getFullYear(), date.getMonth(), 1).toISOString(),
+          },
+        } as any,
+      }));
+
+      const lastOrders = await fastify.to500(Order.findAll({
+        where: {
+          status: 'completed',
+          createdAt: {
+            [Op.gte]: DateTime.now().minus({ days: 30 }).startOf('day').toISO(),
+          },
+        } as any,
+      }));
+
+      const lastOrdersByDate = [];
+      for (let i = 0; i <= 30; i += 1) {
+        const currentDate = DateTime.now().minus({ days: (30 - i) }).startOf('day');
+
+        lastOrdersByDate.push({
+          date: currentDate.toFormat('dd/MM'),
+          orders: lastOrders.filter((order) => {
+            const createdAt = DateTime.fromISO(order.createdAt.toISOString());
+            return createdAt.hasSame(currentDate, 'day');
+          }),
+        });
+      }
+
+      return {
+        orderCount: ordersThisMonth.length,
+        revenues: ordersThisMonth.reduce((acc, order) => acc + order.total, 0),
+        lastOrders: lastOrdersByDate,
+      };
     },
   });
 };

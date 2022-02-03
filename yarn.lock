@@ -282,7 +282,7 @@
     ajv "^6.12.6"
 
 "@getf1tickets/sdk@file:.yalc/@getf1tickets/sdk":
-  version "1.0.0"
+  version "1.0.3"
   dependencies:
     ajv "^8.8.2"
     ajv-errors "^3.0.0"
@@ -403,6 +403,11 @@
   version "0.0.29"
   resolved "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
+
+"@types/luxon@^2.0.9":
+  version "2.0.9"
+  resolved "https://registry.npmjs.org/@types/luxon/-/luxon-2.0.9.tgz#782a0edfa6d699191292c13168bd496cd66b87c6"
+  integrity sha512-ZuzIc7aN+i2ZDMWIiSmMdubR9EMMSTdEzF6R+FckP4p6xdnOYKqknTo/k+xXQvciSXlNGIwA4OPU5X7JIFzYdA==
 
 "@types/ms@*":
   version "0.7.31"
@@ -2780,6 +2785,11 @@ lru-cache@^6.0.0:
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
+
+luxon@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/luxon/-/luxon-2.3.0.tgz#bf16a7e642513c2a20a6230a6a41b0ab446d0045"
+  integrity sha512-gv6jZCV+gGIrVKhO90yrsn8qXPKD8HYZJtrUDSfEbow8Tkw84T9OnCyJhWvnJIaIF/tBuiAjZuQHUt1LddX2mg==
 
 make-dir@^3.0.0, make-dir@^3.0.2:
   version "3.1.0"
