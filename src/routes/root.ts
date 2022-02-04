@@ -93,6 +93,37 @@ const root: FastifyPluginAsync = async (fastify): Promise<void> => {
 
   fastify.route({
     method: 'GET',
+    url: '/:id',
+    preHandler: [
+      fastify.authentication.authorize(),
+      fastify.middlewares.useUser({
+        useToken: true,
+      }),
+      fastify.middlewares.useOrder(),
+    ],
+    handler: async (request) => {
+      const { order } = request;
+
+      return {
+        id: order.id,
+        status: order.status,
+        subtotal: order.subtotal,
+        total: order.total,
+        address: (order as any).address,
+        products: order.products.map((product) => ({
+          id: product.id,
+          quantity: product.quantity,
+          description: {
+            name: product.product.name,
+            price: product.product.price,
+          },
+        })),
+      };
+    },
+  });
+
+  fastify.route({
+    method: 'GET',
     url: '/stats',
     preHandler: [
       fastify.authentication.authorize(),
