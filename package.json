@@ -1,6 +1,6 @@
 {
   "name": "@getf1tickets/order-service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This project was bootstrapped with Fastify-CLI.",
   "main": "app.ts",
   "scripts": {
@@ -11,7 +11,7 @@
     "local:install-sdk": "yalc add @getf1tickets/sdk@1.0.3"
   },
   "dependencies": {
-    "@getf1tickets/sdk": "file:.yalc/@getf1tickets/sdk",
+    "@getf1tickets/sdk": "^1.0.4",
     "amqplib": "^0.8.0",
     "await-to-js": "^3.0.0",
     "fastify": "^3.0.0",
